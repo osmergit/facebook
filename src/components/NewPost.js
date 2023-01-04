@@ -12,7 +12,7 @@ export const NewPost = () => {
     const [ postText, setpostText] = useState('');
     const [ postImage, setpostImage] = useState('');
 
-    console.log(postText);
+    //console.log(postText);
    const createPost = async () => {
     try{
         const collectionRef = collection (db, 'posts');

@@ -72,7 +72,7 @@ height: 4em;
 display: flex;
 position: sticky;
 top: 0;
-left:0;
+left: 0;
 z-index: 100;
 border-bottom: 1px solid #cfcfcf;
 `;
@@ -101,12 +101,12 @@ input {
     border: none;
     outline: none;
     margin-left: 10px;
-    width:80%;
+    width: 80%;
     font-size: 16px;
 }
 @media (max-width: 1200px) {
     width: 50px;
-    height: 50 px;
+    height: 50px;
     input{
         display: none;
     }
@@ -159,7 +159,7 @@ flex: 0.25;
 display: flex;
 align-items: center;
 justify-content: flex-end;
-padding: 0 20 px;
+padding: 0 20px;
 
 .MuiAvatar-root {
     width: 50px;

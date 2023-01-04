@@ -6,19 +6,19 @@ import imgStory from '../ImageStory';
 import {motion} from 'framer-motion';
 import NewPost from './NewPost';
 import Post from './Post'
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export const Body = () => {
 
     const [posts, setposts] = useState([]);
     useEffect( () => {
-        const q = query(collection(db, 'posts'));
+        const q = query(collection(db, 'posts'), orderBy('timestamp','desc'));
         onSnapshot(q, (snapshot) => {
            // console.log(snapshot.docs.map((doc) => doc.data()));
            setposts(snapshot.docs.map((doc) => doc.data()));
         })
-    },[])
+    }, [])
     return (
         <Container>
          <Sidebar />
@@ -26,9 +26,7 @@ export const Body = () => {
              <Carusel>
 
                 <Stories drag= 'x' dragConstraints={{right: 0, left: -270}}>
-                    <Story img = 'https://cdn.pixabay.com/photo/2022/08/23/04/12/vietnamese-woman-7404948_960_720.jpg'
-                    bgImage = 'https://cdn.pixabay.com/photo/2014/12/16/22/25/woman-570883_960_720.jpg' user = 'Angelina'/>
-
+                   
                     {
                         imgStory.map((image, index) => (
                              <Story 
@@ -36,10 +34,8 @@ export const Body = () => {
                              img= {image.imgProfile}
                              bgImage = {image.url}
                              user = {image.name}
-
                              />
-                        )
-                        )
+                        ))
                     }
                                   
                                       
@@ -58,7 +54,7 @@ export const Body = () => {
                     />
                 ))
              }
-             <Post />
+             
         </Feed>
 
 

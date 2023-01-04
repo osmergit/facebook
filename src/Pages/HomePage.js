@@ -13,4 +13,6 @@ export const HomePage = () => {
 }
 
 export default HomePage
-const Container = styled.div ``;
+const Container = styled.div `
+heigth: 500px;
+`;
