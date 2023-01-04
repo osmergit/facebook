@@ -1,10 +1,24 @@
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components'
 import Sidebar from './Sidebar';
 import Story from './Story'
 import imgStory from '../ImageStory';
 import {motion} from 'framer-motion';
+import NewPost from './NewPost';
+import Post from './Post'
+import { collection, onSnapshot, query } from 'firebase/firestore';
+import { db } from '../firebase';
+
 export const Body = () => {
 
+    const [posts, setposts] = useState([]);
+    useEffect( () => {
+        const q = query(collection(db, 'posts'));
+        onSnapshot(q, (snapshot) => {
+           // console.log(snapshot.docs.map((doc) => doc.data()));
+           setposts(snapshot.docs.map((doc) => doc.data()));
+        })
+    },[])
     return (
         <Container>
          <Sidebar />
@@ -16,8 +30,9 @@ export const Body = () => {
                     bgImage = 'https://cdn.pixabay.com/photo/2014/12/16/22/25/woman-570883_960_720.jpg' user = 'Angelina'/>
 
                     {
-                        imgStory.map((image) => (
+                        imgStory.map((image, index) => (
                              <Story 
+                             key={index}
                              img= {image.imgProfile}
                              bgImage = {image.url}
                              user = {image.name}
@@ -26,13 +41,24 @@ export const Body = () => {
                         )
                         )
                     }
-                    
-                  
-                    
-
+                                  
+                                      
                 </Stories>
+                
              </Carusel>
-
+             <NewPost />
+             {
+                posts.map((post, index) => (
+                    <Post 
+                    key={index}
+                    name = {post.name}
+                    imgProfile={post.imgProfile}
+                    postText = {post.postText}
+                    postImage= {post.postImage}
+                    />
+                ))
+             }
+             <Post />
         </Feed>
 
 
@@ -44,13 +70,13 @@ export const Body = () => {
 
 const Container = styled.div `
 width: 100%;
-background-color: white;
-height: 30vh;
+background-color: gray;
+height: 100vh;
 display: flex;
 position: sticky;
 top: 0;
 left:0;
-z-index: 100;
+z-index : 100;
 border-bottom: 1px solid #cfcfcf;
 `;
 
